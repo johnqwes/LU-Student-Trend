@@ -33,7 +33,7 @@ img = get_img_as_base64("green.jpg")
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("https://scontent.fmnl30-2.fna.fbcdn.net/v/t1.15752-9/386888887_1808215622946295_7167277091580316419_n.png?_nc_cat=110&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeEktddWvYozZUVM82TXQDjB4v6ietPoZo_i_qJ60-hmj7OkSVeDoCP8o8vjxQRLM38cHCxa2jRqHq-98d_FljM4&_nc_ohc=5oGrhUn9VyEAX-pDzkq&_nc_ht=scontent.fmnl30-2.fna&oh=03_AdStqDQO54DcdfqAuMilRX16-ww-uJTWQIA1jcVNjwIZhg&oe=659E462F");
+background-image: url("https://scontent.fmnl30-1.fna.fbcdn.net/v/t1.15752-9/409665525_325766313558966_3362020862015395175_n.png?_nc_cat=107&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeEwSIQSbEevaA68TShX-QKGQrU_Kj-Z_TlCtT8qP5n9OfvhMeXHanbrHV8uVvZvfSUuUjJynq7xGBrk5HDdu4af&_nc_ohc=HSytR9Ag5yMAX91r4hh&_nc_ht=scontent.fmnl30-1.fna&oh=03_AdQsucHKe8mJXoiW5x1evOQf9C8jIY3ye0eE9a0ur_sE5w&oe=65A007E7");
 background-size: cover;
 background-position: top left;
 background-repeat: no-repeat;
@@ -207,7 +207,7 @@ def main():
         email = st.text_input("Email Address")
         password = st.text_input("Password", type="password")
 
-        login_button_clicked = st.button("Login", key="login_button")
+        login_button_clicked = st.button("LOGIN", key="login_button")
         reset_button_clicked = st.button("Forgot Password", key="reset_button")
 
         if login_button_clicked:
@@ -255,54 +255,54 @@ def main():
                     df = pd.read_csv(stringio)
                     st.write(df)  # Display the DataFrame in Streamlit
                 else:
-                    df = pd.read_csv("visual_data.csv", encoding="ISO-8859-1")
+                    df = pd.read_csv("v_data.csv", encoding="ISO-8859-1")
 
                 col1, col2 = st.columns((2))
 
                 st.header("⭐ Choose your filter: ")
                 # Create for Program
-                program = st.multiselect("Select Program:", df["Program"].unique())
+                program = st.multiselect("Select Program:", df["Program Name"].unique())
                 if not program:
                     df2 = df.copy()
                 else:
-                    df2 = df[df["Program"].isin(program)]
+                    df2 = df[df["Program Name"].isin(program)]
 
                 # Create for Year
-                year = st.multiselect("Select School Year:", df2["Year"].unique())
+                year = st.multiselect("Select School Year:", df2["School Year"].unique())
                 if not year:
                     df3 = df2.copy()
                 else:
-                    df3 = df2[df2["Year"].isin(year)]
+                    df3 = df2[df2["School Year"].isin(year)]
 
                 # Filter the data based on Region, State and City
 
                 if not program:
                     filtered_df = df
                 elif not year:
-                    filtered_df = df[df["Program"].isin(program)]
+                    filtered_df = df[df["Program Name"].isin(program)]
                 elif not program:
-                    filtered_df = df[df["Year"].isin(year)]
+                    filtered_df = df[df["School Year"].isin(year)]
                 elif year:
-                    filtered_df = df3[df["Year"].isin(year)]
+                    filtered_df = df3[df["School Year"].isin(year)]
                 elif program:
-                    filtered_df = df3[df["Program"].isin(program)]
+                    filtered_df = df3[df["Program Name"].isin(program)]
                 elif program and year:
-                    filtered_df = df3[df["Program"].isin(program) & df3["Year"].isin(year)]
+                    filtered_df = df3[df["Program Name"].isin(program) & df3["School Year"].isin(year)]
                 else:
-                    filtered_df = df3[df3["Program"].isin(program) & df3["Year"].isin(year)]
+                    filtered_df = df3[df3["Program Name"].isin(program) & df3["School Year"].isin(year)]
 
-                program_df = filtered_df.groupby(by = ["Program"], as_index = False)["Enrollees"].sum()
+                program_df = filtered_df.groupby(by = ["Program Name"], as_index = False)["Number of Enrollees"].sum()
 
                 # Generate a bar chart for enrollment
                 st.markdown("<h2 style='color: #E97451;'>📈 Enrollees</h2>", unsafe_allow_html=True)
                 fig_enrollment = px.bar(
                     program_df,
-                    x="Program",
-                    y="Enrollees",
-                    text=['{:,.0f}'.format(x) for x in program_df["Enrollees"]],
+                    x="Program Name",
+                    y="Number of Enrollees",
+                    text=['{:,.0f}'.format(x) for x in program_df["Number of Enrollees"]],
                     template="plotly_dark",
-                    labels={"Enrollees": "Number of Enrollees"},
-                    color="Enrollees",
+                    labels={"Number of Enrollees": "Number of Enrollees"},
+                    color="Number of Enrollees",
                     color_continuous_scale=px.colors.sequential.Viridis,
                 )
 
@@ -327,8 +327,8 @@ def main():
                 st.markdown("<h2 style=' color: #E97451;'>📉 Dropout</h2>", unsafe_allow_html=True)
                 fig_dropout = px.pie(
                     filtered_df,
-                    values="Dropout",
-                    names="Program",
+                    values="Number of Dropout",
+                    names="Program Name",
                     hole=0.5,
                     template="plotly_dark",
                 )
@@ -345,10 +345,38 @@ def main():
 
                 # Expander for Dropout data
                 with st.expander("Dropout Data"):
-                    region = filtered_df.groupby(by="Program", as_index=False)["Dropout"].sum()
+                    region = filtered_df.groupby(by="Program Name", as_index=False)["Number of Dropout"].sum()
                     st.write(region.style.background_gradient(cmap="Oranges"))
                     csv_dropout = region.to_csv(index=False).encode('utf-8')
                     st.download_button('Download Dropout Data', data=csv_dropout, file_name="Dropout_Data.csv", mime="text/csv")
+
+                # Generate a pie chart for Graduate distribution
+                st.markdown("<h2 style=' color: #E97451;'>🎓 Graduates</h2>", unsafe_allow_html=True)
+                fig_dropout = px.pie(
+                    filtered_df,
+                    values="Number of Graduates",
+                    names="Program Name",
+                    hole=0.5,
+                    template="plotly_dark",
+                )
+
+                fig_dropout.update_traces(textposition='outside', textinfo='percent+label')
+                fig_dropout.update_layout(
+                    legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+                    plot_bgcolor='#FFf',
+                    paper_bgcolor='#fff',
+                    height=500,
+                )
+
+                st.plotly_chart(fig_dropout, use_container_width=True)
+
+                with st.expander("Graduate Data"):
+                    region = filtered_df.groupby(by="Program Name", as_index=False)["Number of Graduates"].sum()
+                    st.write(region.style.background_gradient(cmap="Oranges"))
+                    csv_dropout = region.to_csv(index=False).encode('utf-8')
+                    st.download_button('Download Graduate Data', data=csv_dropout, file_name="Graduate_Data.csv", mime="text/csv")
+
+
                 # Download orginal DataSet
                 csv = df.to_csv(index = False).encode('utf-8')
                 st.download_button('Download Data', data = csv, file_name = "Data.csv",mime = "text/csv")
@@ -397,7 +425,7 @@ def main():
 
                 st.sidebar.header("⭐ Predict Enrollees")
 
-                with st.expander("VIEW DEFAULT DATA"):
+                with st.expander("VIEW DATA"):
                     st.write(data)  # Display the default data when the expander is expanded
 
                 sy_input = st.sidebar.number_input("Enter the year: ", step=1)
@@ -494,29 +522,75 @@ def main():
                         st.markdown(styled_prediction_text, unsafe_allow_html=True)
                         st.markdown(styled_original_text, unsafe_allow_html=True)
 
-                        # Checking for significant growth to show recommendation button
-                        if original_value is None and predictions[0] > 0.5 * filtered_data['Number of Enrollees'].max():
-                            show_recommendation_button = True
+                        # Checking for significant growth or decrease based on predictions compared to the latest data
+                        if original_value is None:
+                            latest_value = filtered_data['Number of Enrollees'].iloc[-1]  # Fetching the latest value from the data
+
+                            # Rounding off the values to whole numbers
+                            latest_value = round(latest_value)
+                            predictions[0] = round(predictions[0])
+
+                            # Checking if the predicted value indicates growth compared to the latest data
+                            if predictions[0] > latest_value:
+                                growth_amount = predictions[0] - latest_value
+                                growth_report = f"The predicted Enrollees increased by {int(growth_amount)} compared to the latest data."
+                                show_growth_recommendation = True
+                            else:
+                                growth_report = "The predicted Enrollees decreased compared to the latest data."
+                                show_growth_recommendation = False
+
+                            # Checking if the predicted value indicates decrease compared to the latest data
+                            if predictions[0] < latest_value:
+                                decrease_amount = latest_value - predictions[0]
+                                decrease_report = f"The predicted Enrollees decreased by {int(decrease_amount)} compared to the latest data."
+                                show_decrease_recommendation = True
+                            else:
+                                decrease_report = "The predicted Enrollees increased compared to the latest data."
+                                show_decrease_recommendation = False                       
+
+                            # Checking for growth to show recommendation button
+                            if show_growth_recommendation:
+                                col1, col2, col3 = st.columns([1, 6, 1])
+                                with col2:
+                                    if st.button('📄 Reports', key="increase_recommendation_button",
+                                                help="Click to see recommendations for increase"):
+                                        st.write(growth_report)
+                                        st.markdown("""
+                                            <div style='color: white;'>
+                                                <div style='background-color: #023020; padding: 10px; border-radius: 5px;'>
+                                                    <strong>Recommendation for Handling Increase in Enrollment:</strong><br>
+                                                    - Assess and expand infrastructure to accommodate the increased number of students.<br>
+                                                    - Develop additional educational programs and resources to meet the growing demand.<br>
+                                                    - Recruit and train additional faculty/staff to maintain quality education standards.<br>
+                                                    - Enhance support services for students to ensure a smooth transition and adaptation.<br>
+                                                    - Foster community engagement and partnerships to support the growing student population.<br>
+                                                </div>
+                                            </div>
+                                        """, unsafe_allow_html=True)
+
+                            # Checking for decrease to show recommendation button
+                            if show_decrease_recommendation:
+                                col1, col2, col3 = st.columns([1, 6, 1])
+                                with col2:
+                                    if st.button('📄 Reports', key="decrease_recommendation_button",
+                                                help="Click to see recommendations for decrease"):
+                                        st.write(decrease_report)
+                                        st.markdown("""
+                                            <div style='color: white;'>
+                                                <div style='background-color: #023020; padding: 10px; border-radius: 5px;'>
+                                                    <strong>Recommendation for Handling Decrease in Enrollment:</strong><br>
+                                                    - Analyze the causes behind the decrease and address potential issues.<br>
+                                                    - Implement retention strategies to prevent further decline in enrollment.<br>
+                                                    - Adjust academic programs to better meet the needs of the reduced student body.<br>
+                                                    - Focus on marketing efforts to attract prospective students and boost enrollment.<br>
+                                                    - Collaborate with community stakeholders to understand and address enrollment challenges.<br>
+                                                </div>
+                                            </div>
+                                        """, unsafe_allow_html=True)
+
 
                 st.plotly_chart(fig)
 
-                if show_recommendation_button:
-                    col1, col2, col3 = st.columns([1, 6, 1])
-                    with col2:
-                        if st.button('📝 Show Recommendation', key="recommendation_button", help="Click to see recommendations"):
-                            st.markdown("""
-                                <div style='color: white;'>
-                                    <div style='background-color: #023020; padding: 10px; border-radius: 5px;'>
-                                        <strong>✰ Marketing Strategies:</strong> Invest in effective marketing strategies to reach potential students, leveraging social media, digital marketing, and targeted advertising.<br>
-                                        <strong>✰ Enhance Programs:</strong> Continuously develop and enhance academic programs, ensuring they are aligned with industry needs and offer unique value.<br>
-                                        <strong>✰ Scholarships and Financial Aid:</strong> Increase scholarship opportunities and financial aid packages to attract a diverse pool of students.<br>
-                                        <strong>✰ Partnerships and Collaborations:</strong> Forge partnerships with industries, community organizations, and schools to create pipelines and opportunities for enrollment.<br>
-                                        <strong>✰ Online Presence:</strong> Expand online education offerings and improve the quality and accessibility of online learning programs.<br>
-                                        <strong>✰ Student Support Services:</strong> Enhance student support services like counseling, mentorship programs, and career services to improve student experience and retention.<br>
-                                        <strong>✰ Facilities and Campus Life:</strong> Invest in modern facilities, technology, and campus life to attract and retain students.
-                                    </div>
-                                </div>
-                            """, unsafe_allow_html=True)
 
         with open('stacked_model_drop.pkl', 'rb') as file:
             stacked_model = pickle.load(file)
@@ -559,7 +633,7 @@ def main():
 
                     st.sidebar.header("⭐ Predict Dropout")
 
-                    with st.expander("VIEW DEFAULT DATA"):
+                    with st.expander("VIEW DATA"):
                      st.write(data)  # Display the default data when the expander is expanded
         
                     sy_input = st.sidebar.number_input("Enter the year: ", step=1)
@@ -656,28 +730,76 @@ def main():
                             st.markdown(styled_prediction_text, unsafe_allow_html=True)
                             st.markdown(styled_original_text, unsafe_allow_html=True)
 
-                            # Checking for significant growth to show recommendation button
-                            if original_value is None and predictions[0] > 0.5 * filtered_data['Number of Dropout'].max():
-                                show_recommendation_button = True
+                            # Checking for significant growth or decrease based on predictions compared to the latest data
+                            if original_value is None:
+                                latest_value = filtered_data['Number of Dropout'].iloc[-1]  # Fetching the latest value from the data
+
+                                # Rounding off the values to whole numbers
+                                latest_value = round(latest_value)
+                                predictions[0] = round(predictions[0])
+
+                                # Checking if the predicted value indicates growth compared to the latest data
+                                if predictions[0] > latest_value:
+                                    growth_amount = predictions[0] - latest_value
+                                    growth_report = f"The predicted Dropouts increased by {int(growth_amount)} compared to the latest data."
+                                    show_growth_recommendation = True
+                                else:
+                                    growth_report = "The predicted Dropouts decreased compared to the latest data."
+                                    show_growth_recommendation = False
+
+                                # Checking if the predicted value indicates decrease compared to the latest data
+                                if predictions[0] < latest_value:
+                                    decrease_amount = latest_value - predictions[0]
+                                    decrease_report = f"The predicted Dropouts decreased by {int(decrease_amount)} compared to the latest data."
+                                    show_decrease_recommendation = True
+                                else:
+                                    decrease_report = "The predicted Dropouts increased compared to the latest data."
+                                    show_decrease_recommendation = False                       
+
+                                # Checking for growth to show recommendation button
+                                if show_growth_recommendation:
+                                    col1, col2, col3 = st.columns([1, 6, 1])
+                                    with col2:
+                                        if st.button('📄 Reports', key="increase_recommendation_button",
+                                                    help="Click to see recommendations for increase"):
+                                            st.write(growth_report)
+                                            st.markdown("""
+                                                <div style='color: white;'>
+                                                    <div style='background-color: #023020; padding: 10px; border-radius: 5px;'>
+                                                        <strong>Recommendation for Handling Increase in Dropout Rates:</strong><br>
+                                                        - Implement additional support programs, such as mentoring initiatives, tutoring services,
+                                                        and community outreach, to address potential increases in dropout rates.<br>
+                                                        - Focus on early intervention strategies and personalized assistance for at-risk students.<br>
+                                                        - Strengthen communication channels between educators, students, and parents/guardians.<br>
+                                                        - Conduct regular assessments to identify struggling students and provide targeted support.<br>
+                                                        - Collaborate with local organizations or agencies to create comprehensive support networks.<br>
+                                                    </div>
+                                                </div>
+                                            """, unsafe_allow_html=True)
+
+                                # Checking for decrease to show recommendation button
+                                if show_decrease_recommendation:
+                                    col1, col2, col3 = st.columns([1, 6, 1])
+                                    with col2:
+                                        if st.button('📄 Reports', key="decrease_recommendation_button",
+                                                    help="Click to see recommendations for decrease"):
+                                            st.write(decrease_report)
+                                            st.markdown("""
+                                                <div style='color: white;'>
+                                                    <div style='background-color: #023020; padding: 10px; border-radius: 5px;'>
+                                                         <strong>Recommendation for Decrease in Dropout Rate:</strong><br>
+                                                        Consider maintaining and reinforcing successful programs that contribute to the decrease
+                                                        in dropout rates. Additionally:<br>
+                                                        - Continue to provide academic and emotional support to students.<br>
+                                                        - Evaluate and expand upon strategies that contributed to the decline.<br>
+                                                        - Encourage community involvement and engagement in educational initiatives.<br>
+                                                        - Monitor trends and adjust interventions based on ongoing assessment and feedback.<br>
+                                                    </div>
+                                                </div>
+                                            """, unsafe_allow_html=True)
+
 
                     st.plotly_chart(fig)
-
-                    if show_recommendation_button:
-                        col1, col2, col3 = st.columns([1, 6, 1])
-                        with col2:
-                            if st.button('📝 Show Recommendation', key="recommendation_button", help="Click to see recommendations"):
-                                st.markdown("""
-                                    <div style='color: white;'>
-                                        <div style='background-color: #023020; padding: 10px; border-radius: 5px;'>
-                                            <strong>✰ School Culture & Environment:</strong> Cultivate a positive and inclusive school environment while forming community partnerships.<br>
-                                            <strong>✰ Technology & Resources:</strong> Ensure access to technology and provide career-focused education programs.<br>
-                                            <strong>✰ Continuous Monitoring & Evaluation:</strong> Continuously monitor dropout rates and evaluate interventions' effectiveness.<br>
-                                            <strong>✰ Policy & Funding:</strong> Advocate for policy changes and allocate resources to dropout prevention initiatives.<br>
-                                            <strong>✰ Collaboration & Professional Development:</strong> Provide teacher training and encourage interdisciplinary collaboration.<br>
-                                            <strong>✰ Student Support Services:</strong> Enhance student support services like counseling, mentorship programs, and career services to improve student experience and retention.<br>
-                                        </div>
-                                    </div>
-                                """, unsafe_allow_html=True)
 
         with open('stacked_model_grad.pkl', 'rb') as file:
             stacked_model = pickle.load(file)
@@ -719,7 +841,7 @@ def main():
 
                     st.sidebar.header("⭐ Predict Graduate")
 
-                    with st.expander("VIEW DEFAULT DATA"):
+                    with st.expander("VIEW DATA"):
                      st.write(data)  # Display the default data when the expander is expanded
         
                     sy_input = st.sidebar.number_input("Enter the year: ", step=1)
@@ -817,29 +939,75 @@ def main():
                             st.markdown(styled_prediction_text, unsafe_allow_html=True)
                             st.markdown(styled_original_text, unsafe_allow_html=True)
 
-                            # Checking for significant growth to show recommendation button
-                            if original_value is None and predictions[0] > 0.5 * filtered_data['Number of Graduates'].max():
-                                show_recommendation_button = True
+                            # Checking for significant growth or decrease based on predictions compared to the latest data
+                            if original_value is None:
+                                latest_value = filtered_data['Number of Graduates'].iloc[-1]  # Fetching the latest value from the data
+
+                                # Rounding off the values to whole numbers
+                                latest_value = round(latest_value)
+                                predictions[0] = round(predictions[0])
+
+                                # Checking if the predicted value indicates growth compared to the latest data
+                                if predictions[0] > latest_value:
+                                    growth_amount = predictions[0] - latest_value
+                                    growth_report = f"The predicted Graduates increased by {int(growth_amount)} compared to the latest data."
+                                    show_growth_recommendation = True
+                                else:
+                                    growth_report = "The predicted Graduates decreased compared to the latest data."
+                                    show_growth_recommendation = False
+
+                                # Checking if the predicted value indicates decrease compared to the latest data
+                                if predictions[0] < latest_value:
+                                    decrease_amount = latest_value - predictions[0]
+                                    decrease_report = f"The predicted Graduates decreased by {int(decrease_amount)} compared to the latest data."
+                                    show_decrease_recommendation = True
+                                else:
+                                    decrease_report = "The predicted Graduates increased compared to the latest data."
+                                    show_decrease_recommendation = False                       
+
+                                # Checking for growth to show recommendation button
+                                if show_growth_recommendation:
+                                    col1, col2, col3 = st.columns([1, 6, 1])
+                                    with col2:
+                                        if st.button('📄 Reports', key="increase_recommendation_button",
+                                                    help="Click to see recommendations for increase"):
+                                            st.write(growth_report)
+                                            st.markdown("""
+                                                <div style='color: white;'>
+                                                    <div style='background-color: #023020; padding: 10px; border-radius: 5px;'>
+                                                        <strong>Recommendation for Handling Increase in Graduates:</strong><br>
+                                                        - Expand resources and programs to support increased graduation requirements.<br>
+                                                        - Provide additional academic support and counseling services to ensure student success.<br>
+                                                        - Develop career-oriented workshops and mentorship programs to aid in post-graduation plans.<br>
+                                                        - Enhance collaboration with industries for internship opportunities and practical experience.<br>
+                                                        - Evaluate and adapt curriculum to align with evolving job market demands.<br>
+                                                    </div>
+                                                </div>
+                                            """, unsafe_allow_html=True)
+
+                                # Checking for decrease to show recommendation button
+                                if show_decrease_recommendation:
+                                    col1, col2, col3 = st.columns([1, 6, 1])
+                                    with col2:
+                                        if st.button('📄 Reports', key="decrease_recommendation_button",
+                                                    help="Click to see recommendations for decrease"):
+                                            st.write(decrease_report)
+                                            st.markdown("""
+                                                <div style='color: white;'>
+                                                    <div style='background-color: #023020; padding: 10px; border-radius: 5px;'>
+                                                        <strong>Recommendation for Handling Decrease in Graduates:</strong><br>
+                                                        - Investigate reasons behind the decrease and address potential issues.<br>
+                                                        - Offer additional support services to improve graduation rates and retention.<br>
+                                                        - Reassess curriculum and educational strategies to better meet student needs.<br>
+                                                        - Strengthen partnerships with industries for job placement and post-graduation opportunities.<br>
+                                                        - Implement proactive measures to identify and support at-risk students.<br>
+                                                    </div>
+                                                </div>
+                                            """, unsafe_allow_html=True)
+
 
                     st.plotly_chart(fig)
 
-                    if show_recommendation_button:
-                        col1, col2, col3 = st.columns([1, 6, 1])
-                        with col2:
-                            if st.button('📝 Show Recommendation', key="recommendation_button", help="Click to see recommendations"):
-                                st.markdown("""
-                                    <div style='color: white;'>
-                                        <div style='background-color: #023020; padding: 10px; border-radius: 5px;'>
-                                            <strong>✰ Marketing Strategies:</strong> Invest in effective marketing strategies to reach potential students, leveraging social media, digital marketing, and targeted advertising.<br>
-                                            <strong>✰ Enhance Programs:</strong> Continuously develop and enhance academic programs, ensuring they are aligned with industry needs and offer unique value.<br>
-                                            <strong>✰ Scholarships and Financial Aid:</strong> Increase scholarship opportunities and financial aid packages to attract a diverse pool of students.<br>
-                                            <strong>✰ Partnerships and Collaborations:</strong> Forge partnerships with industries, community organizations, and schools to create pipelines and opportunities for enrollment.<br>
-                                            <strong>✰ Online Presence:</strong> Expand online education offerings and improve the quality and accessibility of online learning programs.<br>
-                                            <strong>✰ Student Support Services:</strong> Enhance student support services like counseling, mentorship programs, and career services to improve student experience and retention.<br>
-                                            <strong>✰ Facilities and Campus Life:</strong> Invest in modern facilities, technology, and campus life to attract and retain students.
-                                        </div>
-                                    </div>
-                                """, unsafe_allow_html=True)
 
             if tabs == "🆕 Add new data":
                     
