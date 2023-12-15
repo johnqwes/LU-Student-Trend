@@ -553,7 +553,7 @@ def main():
                                 col1, col2, col3 = st.columns([1, 6, 1])
                                 with col2:
                                     if st.button('📄 Reports', key="increase_recommendation_button",
-                                                help="Click to see recommendations for increase"):
+                                                help="Click to see reports"):
                                         st.write(growth_report)
                                         st.markdown("""
                                             <div style='color: white;'>
@@ -573,7 +573,7 @@ def main():
                                 col1, col2, col3 = st.columns([1, 6, 1])
                                 with col2:
                                     if st.button('📄 Reports', key="decrease_recommendation_button",
-                                                help="Click to see recommendations for decrease"):
+                                                help="Click to see reports"):
                                         st.write(decrease_report)
                                         st.markdown("""
                                             <div style='color: white;'>
@@ -761,7 +761,7 @@ def main():
                                     col1, col2, col3 = st.columns([1, 6, 1])
                                     with col2:
                                         if st.button('📄 Reports', key="increase_recommendation_button",
-                                                    help="Click to see recommendations for increase"):
+                                                    help="Click to see reports"):
                                             st.write(growth_report)
                                             st.markdown("""
                                                 <div style='color: white;'>
@@ -782,7 +782,7 @@ def main():
                                     col1, col2, col3 = st.columns([1, 6, 1])
                                     with col2:
                                         if st.button('📄 Reports', key="decrease_recommendation_button",
-                                                    help="Click to see recommendations for decrease"):
+                                                    help="Click to see reports"):
                                             st.write(decrease_report)
                                             st.markdown("""
                                                 <div style='color: white;'>
@@ -970,7 +970,7 @@ def main():
                                     col1, col2, col3 = st.columns([1, 6, 1])
                                     with col2:
                                         if st.button('📄 Reports', key="increase_recommendation_button",
-                                                    help="Click to see recommendations for increase"):
+                                                    help="Click to see reports"):
                                             st.write(growth_report)
                                             st.markdown("""
                                                 <div style='color: white;'>
@@ -990,7 +990,7 @@ def main():
                                     col1, col2, col3 = st.columns([1, 6, 1])
                                     with col2:
                                         if st.button('📄 Reports', key="decrease_recommendation_button",
-                                                    help="Click to see recommendations for decrease"):
+                                                    help="Click to see reports"):
                                             st.write(decrease_report)
                                             st.markdown("""
                                                 <div style='color: white;'>
