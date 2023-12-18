@@ -31,7 +31,7 @@ School Year,Program ID,Program Name,Number of Enrollees,Number of Dropout,Number
 2019,3,Bachelor of Science in Entrepreneurship (BSE),924,87,41
 2020,3,Bachelor of Science in Entrepreneurship (BSE),1308,131,32
 2021,3,Bachelor of Science in Entrepreneurship (BSE),1222,93,104
-2022,3,Bachelor of Science in Entrepreneurship (BSE),1160,30,186
+2022,3,Bachelor of Science in Entrepreneurship (BSE),1200,30,186
 2012,4,Bachelor of Science in Computer Science (BSCS),310,0,16
 2013,4,Bachelor of Science in Computer Science (BSCS),400,0,12
 2014,4,Bachelor of Science in Computer Science (BSCS),427,0,20
@@ -42,7 +42,7 @@ School Year,Program ID,Program Name,Number of Enrollees,Number of Dropout,Number
 2019,4,Bachelor of Science in Computer Science (BSCS),229,23,19
 2020,4,Bachelor of Science in Computer Science (BSCS),391,49,1
 2021,4,Bachelor of Science in Computer Science (BSCS),415,23,22
-2022,4,Bachelor of Science in Computer Science (BSCS),400,13,34
+2022,4,Bachelor of Science in Computer Science (BSCS),437,13,34
 2012,5,Bachelor of Science in Mechanical Engineering (BSME),256,0,10
 2013,5,Bachelor of Science in Mechanical Engineering (BSME),343,0,12
 2014,5,Bachelor of Science in Mechanical Engineering (BSME),484,0,12
@@ -53,7 +53,7 @@ School Year,Program ID,Program Name,Number of Enrollees,Number of Dropout,Number
 2019,5,Bachelor of Science in Mechanical Engineering (BSME),820,33,44
 2020,5,Bachelor of Science in Mechanical Engineering (BSME),698,47,33
 2021,5,Bachelor of Science in Mechanical Engineering (BSME),1113,34,36
-2022,5,Bachelor of Science in Mechanical Engineering (BSME),968,40,80
+2022,5,Bachelor of Science in Mechanical Engineering (BSME),947,40,80
 2012,6,Bachelor of Arts in Communication (BAC),240,0,10
 2013,6,Bachelor of Arts in Communication (BAC),374,0,14
 2014,6,Bachelor of Arts in Communication (BAC),490,0,20
@@ -86,7 +86,7 @@ School Year,Program ID,Program Name,Number of Enrollees,Number of Dropout,Number
 2019,8,Bachelor of Secondary Education English,144,10,3
 2020,8,Bachelor of Secondary Education English,330,12,0
 2021,8,Bachelor of Secondary Education English,421,20,18
-2022,8,Bachelor of Secondary Education English,395,5,40
+2022,8,Bachelor of Secondary Education English,368,5,40
 2012,9,Bachelor of Secondary Education Mathematics,120,0,0
 2013,9,Bachelor of Secondary Education Mathematics,107,0,8
 2014,9,Bachelor of Secondary Education Mathematics,140,0,4
@@ -97,7 +97,7 @@ School Year,Program ID,Program Name,Number of Enrollees,Number of Dropout,Number
 2019,9,Bachelor of Secondary Education Mathematics,56,5,1
 2020,9,Bachelor of Secondary Education Mathematics,108,10,0
 2021,9,Bachelor of Secondary Education Mathematics,182,16,9
-2022,9,Bachelor of Secondary Education Mathematics,180,0,9
+2022,9,Bachelor of Secondary Education Mathematics,146,0,8
 2018,10,Bachelor of Secondary Education Science,38,6,0
 2019,10,Bachelor of Secondary Education Science,90,8,0
 2020,10,Bachelor of Secondary Education Science,166,6,0
@@ -132,3 +132,4 @@ School Year,Program ID,Program Name,Number of Enrollees,Number of Dropout,Number
 2021,14,Bachelor of Science in Accounting Information System (BSAIS),736,18,34
 2022,14,Bachelor of Science in Accounting Information System (BSAIS),885,25,107
 2022,15,Bachelor of Arts in Psychology (BA Psy),92,8,0
+2022,16,erewrewr,,0,0
