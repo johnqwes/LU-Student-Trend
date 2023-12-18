@@ -33,7 +33,7 @@ img = get_img_as_base64("green.jpg")
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("https://scontent.fmnl30-1.fna.fbcdn.net/v/t1.15752-9/409665525_325766313558966_3362020862015395175_n.png?_nc_cat=107&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeEwSIQSbEevaA68TShX-QKGQrU_Kj-Z_TlCtT8qP5n9OfvhMeXHanbrHV8uVvZvfSUuUjJynq7xGBrk5HDdu4af&_nc_ohc=HSytR9Ag5yMAX91r4hh&_nc_ht=scontent.fmnl30-1.fna&oh=03_AdQsucHKe8mJXoiW5x1evOQf9C8jIY3ye0eE9a0ur_sE5w&oe=65A007E7");
+background-image: url("https://scontent.fmnl30-1.fna.fbcdn.net/v/t1.15752-9/409412298_1453175752285633_1675291559160145762_n.png?_nc_cat=103&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeGOSitY8F09aBwNg4fnGoBrJce81NeXzEQlx7zU15fMRCCalcD4yocsQsGHRO0ZfxcjjYvkliOdqCUCJTSC-F2D&_nc_ohc=GY3-Ic1us7cAX_NPKAT&_nc_ht=scontent.fmnl30-1.fna&oh=03_AdRohuOIvNWr4j847Ddv24M-7uh8CLZnNGqGDpr0KbmTcQ&oe=65A73A6F");
 background-size: cover;
 background-position: top left;
 background-repeat: no-repeat;
@@ -426,7 +426,10 @@ def main():
                 st.sidebar.header("⭐ Predict Enrollees")
 
                 with st.expander("VIEW DATA"):
-                    st.write(data)  # Display the default data when the expander is expanded
+                    st.write(data)
+                    csv_data = data.to_csv(index=False).encode('utf-8')
+                    st.download_button('Download Data', data=csv_data, file_name="Data.csv", mime="text/csv")
+                    
 
                 sy_input = st.sidebar.number_input("Enter the year: ", step=1)
                 id_input = st.sidebar.selectbox("Select Program ID: ", data['Program ID'].unique())
@@ -507,14 +510,14 @@ def main():
                             hovermode='closest',
                             plot_bgcolor='#f0f0f0',  # Background color of the plot
                             paper_bgcolor='#ffffff',  # Background color of the paper/plot area
-                            width=860,  # Adjust the width of the plot
+                            width=960,  # Adjust the width of the plot
                             height=600,  # Adjust the height of the plot
                             margin=dict(l=80, r=80, t=100, b=80),  # Adjust margins for better display
                             transition={'duration': 1000}  # Add smooth transition/animation
                         )
                         prediction_text = f"**Predicted Value:** {round(predictions[0])}"
                         if original_value is not None:
-                            original_text = f"**Original Value:** {original_value['Number of Enrollees'].values[0]}"
+                            original_text = f"**Original Value:** {int(original_value['Number of Enrollees'].values[0])}"
 
                         styled_prediction_text = f"<font color='black' size='+5'>{prediction_text}</font>"
                         styled_original_text = f"<font color='black' size='+5'>{original_text}</font>"
@@ -634,7 +637,9 @@ def main():
                     st.sidebar.header("⭐ Predict Dropout")
 
                     with st.expander("VIEW DATA"):
-                     st.write(data)  # Display the default data when the expander is expanded
+                     st.write(data)
+                     csv_data = data.to_csv(index=False).encode('utf-8')
+                     st.download_button('Download Data', data=csv_data, file_name="Data.csv", mime="text/csv")
         
                     sy_input = st.sidebar.number_input("Enter the year: ", step=1)
                     id_input = st.sidebar.selectbox("Select Program ID: ", data['Program ID'].unique())
@@ -715,7 +720,7 @@ def main():
                                 hovermode='closest',
                                 plot_bgcolor='#f0f0f0',  # Background color of the plot
                                 paper_bgcolor='#ffffff',  # Background color of the paper/plot area
-                                width=860,  # Adjust the width of the plot
+                                width=960,  # Adjust the width of the plot
                                 height=600,  # Adjust the height of the plot
                                 margin=dict(l=80, r=80, t=100, b=80),  # Adjust margins for better display
                                 transition={'duration': 1000}  # Add smooth transition/animation
@@ -842,7 +847,9 @@ def main():
                     st.sidebar.header("⭐ Predict Graduate")
 
                     with st.expander("VIEW DATA"):
-                     st.write(data)  # Display the default data when the expander is expanded
+                     st.write(data)
+                     csv_data = data.to_csv(index=False).encode('utf-8')
+                     st.download_button('Download Data', data=csv_data, file_name="Data.csv", mime="text/csv")
         
                     sy_input = st.sidebar.number_input("Enter the year: ", step=1)
                     id_input = st.sidebar.selectbox("Select Program ID: ", data['Program ID'].unique())
@@ -924,7 +931,7 @@ def main():
                                 hovermode='closest',
                                 plot_bgcolor='#f0f0f0',  # Background color of the plot
                                 paper_bgcolor='#ffffff',  # Background color of the paper/plot area
-                                width=860,  # Adjust the width of the plot
+                                width=960,  # Adjust the width of the plot
                                 height=600,  # Adjust the height of the plot
                                 margin=dict(l=80, r=80, t=100, b=80),  # Adjust margins for better display
                                 transition={'duration': 1000}  # Add smooth transition/animation
